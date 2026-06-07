@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(n);
+        
+        int s = 0;
+        int e = n - 1;
+        int pos = n - 1; 
+        
+        while (s <= e) {
+            int leftSquare = nums[s] * nums[s];
+            int rightSquare = nums[e] * nums[e];
+            
+            if (leftSquare > rightSquare) {
+                ans[pos] = leftSquare;
+                s++;
+            } else {
+                ans[pos] = rightSquare;
+                e--;
+            }
+            pos--;
+        }
+        
+        return ans;
+    }
+};
