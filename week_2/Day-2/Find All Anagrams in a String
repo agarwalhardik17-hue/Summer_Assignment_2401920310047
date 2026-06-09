@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int n = p.length();
+        vector<int> ans;
+
+        
+        if(s.length() < n) 
+            return ans;
+
+        int freqP[26]= {0};
+        int freqS[26]= {0};
+
+        for(int i = 0; i < n; i++){
+            freqP[p[i] - 'a']++;
+        }
+
+        for(int i = 0; i < n; i++){
+            freqS[s[i] - 'a']++;
+        }
+        
+        // check first window
+        bool match = true;
+        for(int i = 0; i < 26; i++){
+            if(freqP[i] != freqS[i]){
+                match = false;
+                break;
+            }
+        }
+        if(match) ans.push_back(0);
+
+
+        for(int i = n; i < s.length(); i++){
+            freqS[s[i] - 'a']++;
+            freqS[s[i-n] - 'a']--;
+
+            match = true;
+            for(int j = 0; j < 26; j++){
+                if(freqP[j] != freqS[j]){
+                    match = false;
+                    break;
+                }
+            }
+
+            if(match){
+                ans.push_back(i - n + 1);
+            }
+        }
+        return ans;
+    }
+};
