@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        int maxlen = 0;
+
+        for(int i = 0; i < n; i++) {
+            stack<char> st;
+            vector<bool> seen(256, false);  
+            
+            int len = 0;
+
+            for(int j = i; j < n; j++) {
+                if(seen[s[j]]){
+                    break;   
+                } 
+                
+                st.push(s[j]);
+                seen[s[j]] = true;
+                len++;
+            }
+
+            maxlen = max(maxlen, len);
+        }
+
+        return maxlen;
+    }
+};
