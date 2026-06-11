@@ -1,0 +1,37 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        string curr = "";
+        int num = 0;
+        stack<int> stNum;
+        stack<string> strStr;
+
+        for(int i = 0; i < s.length(); i++){
+            if(isdigit(s[i])){
+                num = num * 10 + (s[i] - '0');
+            }
+            else if(isalpha(s[i])){
+                curr.push_back(s[i]);
+            }
+            else if(s[i] == '['){
+                strStr.push(curr);
+                stNum.push(num);
+                curr = "";
+                num = 0;
+            }
+            else{
+                string letters = strStr.top();
+                strStr.pop();
+                int digit = stNum.top();
+                stNum.pop();
+
+                string temp = "";
+                for(int j = 0; j < digit; j++) {
+                    temp += curr;
+                }
+                curr = letters + temp;
+            }
+        }
+        return curr;
+    }
+};
