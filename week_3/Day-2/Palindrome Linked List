@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    ListNode* reverse(ListNode* head){
+        ListNode* prev = NULL;
+        while(head){
+            ListNode* next = head->next;
+            head->next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+
+    ListNode* copyList(ListNode* head){
+        ListNode* dummy = new ListNode(0);
+        ListNode* tail = dummy;
+
+        while(head){
+            tail->next = new ListNode(head->val);
+            tail = tail->next;
+            head = head->next;
+        }
+        return dummy->next;
+    }
+
+    bool isPalindrome(ListNode* head) {
+        
+        ListNode* copy = copyList(head);
+        ListNode* rev = reverse(copy);
+
+        while(head){
+            if(head->val != rev->val)
+                return false;
+
+            head = head->next;
+            rev = rev->next;
+        }
+
+        return true;
+    }
+};
